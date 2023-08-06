@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
+import 'package:animate_do/animate_do.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,31 +18,37 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Animation Dynamique'),
         ),
-        body: const Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconLogo(
-                iconName: Icons.directions_walk,
-                iconColor: Colors.green,
-                animationDuration: Duration(milliseconds: 500)),
-              IconLogo(
-                  iconName: Icons.directions_run,
-                  iconColor: Colors.lightBlue,
-                  animationDuration: Duration(milliseconds: 600)),
-              IconLogo(
+        body: Center(
+          child: Container(
+            width: 250,
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LineData(
+                  iconName: Icons.directions_walk,
+                  lineColor: Colors.purple,
+                  lineTitle: 'Pas',
+                  lineNumber: '12883',
+                  animationDuration: Duration(milliseconds: 500),
+                ),
+                SizedBox(height: 30),
+                LineData(
+                  iconName: Icons.fastfood,
+                  lineColor: Colors.orange,
+                  lineTitle: 'Calories',
+                  lineNumber: '978',
+                  animationDuration: Duration(milliseconds: 700),
+                ),
+                SizedBox(height: 30),
+                LineData(
                   iconName: Icons.directions_bike,
-                  iconColor: Colors.purple,
-                  animationDuration: Duration(milliseconds: 700)),
-              IconLogo(
-                  iconName: Icons.favorite,
-                  iconColor: Colors.pink,
-                  animationDuration: Duration(milliseconds: 800)),
-              IconLogo(
-                  iconName: Icons.more_vert,
-                  iconColor: Colors.grey,
-                  animationDuration: Duration(milliseconds: 900)),
-            ],
+                  lineColor: Colors.blue,
+                  lineTitle: 'Km de vélo',
+                  lineNumber: '2.8',
+                  animationDuration: Duration(milliseconds: 900),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -49,43 +56,55 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class IconLogo extends StatelessWidget {
+class LineData extends StatelessWidget {
   final IconData iconName;
-  final Color iconColor;
+  final Color lineColor;
+  final String lineTitle;
+  final String lineNumber;
   final Duration animationDuration;
-
-  const IconLogo(
-      {super.key,
-      required this.iconName,
-      required this.iconColor,
-      required this.animationDuration});
+  const LineData(
+      {super.key, required this.iconName, required this.lineColor, required this.lineTitle, required this.lineNumber, required this.animationDuration});
 
   @override
   Widget build(BuildContext context) {
-    return Animator<double>(
-      tween: Tween<double>(begin: 0, end: 50),
-      cycles: 1,
+    return SlideInLeft(
       duration: animationDuration,
-      builder: (context, animatorState, child) => Container(
-        width: animatorState.value,
-        height: animatorState.value,
-        decoration: BoxDecoration(
-          color: iconColor,
-          borderRadius: BorderRadius.circular(50),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.white.withOpacity(0.1),
-              spreadRadius: 3,
-              blurRadius: 15,
-              offset: const Offset(0, 3),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: lineColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.white.withOpacity(0.1),
+                  spreadRadius: 3,
+                  blurRadius: 15,
+                  offset: const Offset(0, 3),
+                )
+              ],
             ),
-          ],
-        ),
-        child: Icon(
-          iconName,
-          color: Colors.white,
-          size: animatorState.value / 2,
-        ),
+            child: Icon(iconName, color: Colors.white, size: 35),
+          ),
+          const SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                lineNumber,
+                style: const TextStyle(color: Colors.black, fontSize: 30),
+              ),
+              Text(
+                lineTitle,
+                style: TextStyle(
+                  color: lineColor,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
