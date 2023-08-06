@@ -10,6 +10,6 @@ This is a page sample of statistics sport app. There is no back end.  Only the f
 You can compile this application with only once source code on many system (Android, Web, Linux, iOS, MacOS, Windows and Fushia) thanks to Flutter !
 
 ## Screenshots
-In Android Pixel 3a:
+In Android Pixel 3a:  
 ![](https://github.com/davipro34/demosport_app/blob/main/README/Compilation_Android_demosport_app.gif)
-
+  
