@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
                   delay: const Duration(milliseconds: 1500),
                   child: infoBox,
                 ),
+                DelayedDisplay(
+                    delay: const Duration(milliseconds: 2000),
+                    child: customButton),
                 const SizedBox(height: 50),
               ],
             ),
@@ -55,7 +58,7 @@ class MyApp extends StatelessWidget {
 Widget topIcons = Container(
   height: 130,
   padding: const EdgeInsets.all(30),
-  margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+  margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
   child: Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -132,7 +135,7 @@ class IconLogo extends StatelessWidget {
 }
 
 Widget infoBox = Container(
-  margin: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+  margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
   width: 250,
   child: const Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -144,7 +147,7 @@ Widget infoBox = Container(
         lineNumber: '12967',
         animationDuration: Duration(milliseconds: 500),
       ),
-      SizedBox(height: 30),
+      SizedBox(height: 20),
       LineData(
         iconName: Icons.fastfood,
         lineColor: Colors.orange,
@@ -152,7 +155,7 @@ Widget infoBox = Container(
         lineNumber: '967',
         animationDuration: Duration(milliseconds: 700),
       ),
-      SizedBox(height: 30),
+      SizedBox(height: 20),
       LineData(
         iconName: Icons.directions_bike,
         lineColor: Colors.blue,
@@ -242,4 +245,36 @@ Widget slider = SleekCircularSlider(
   min: 0,
   max: 100,
   initialValue: 79,
+);
+
+Widget customButton = ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    padding: const EdgeInsets.all(0),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(30)),
+    ),
+  ),
+  child: Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(30),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.white.withOpacity(0.1),
+          spreadRadius: 3,
+          blurRadius: 15,
+          offset: const Offset(0, 3),
+        ),
+      ],
+      gradient: LinearGradient(
+        colors: <Color>[
+          Colors.pink.shade900,
+          Colors.purple,
+          Colors.blue,
+        ],
+      ),
+    ),
+    padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
+    child: const Text('Recharger les données', style: TextStyle(fontSize: 20)),
+  ),
+  onPressed: () {},
 );
