@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 void main() => runApp(const MyApp());
 
@@ -32,6 +33,10 @@ class MyApp extends StatelessWidget {
                 DelayedDisplay(
                   delay: const Duration(milliseconds: 500),
                   child: topIcons,
+                ),
+                DelayedDisplay(
+                  delay: const Duration(milliseconds: 1000),
+                  child: slider,
                 ),
                 DelayedDisplay(
                   delay: const Duration(milliseconds: 1500),
@@ -214,3 +219,26 @@ class LineData extends StatelessWidget {
     );
   }
 }
+
+Widget slider = SleekCircularSlider(
+  appearance: CircularSliderAppearance(
+    size: 250,
+    customWidths: CustomSliderWidths(progressBarWidth: 25),
+    infoProperties: InfoProperties(
+      mainLabelStyle: const TextStyle(
+        fontSize: 50,
+        color: Colors.white,
+        fontWeight: FontWeight.w300,
+      ),
+      bottomLabelText: 'Complété',
+      bottomLabelStyle: const TextStyle(
+        fontSize: 25,
+        color: Colors.white70,
+        fontWeight: FontWeight.w300,
+      ),
+    ),
+  ),
+  min: 0,
+  max: 100,
+  initialValue: 79,
+);
