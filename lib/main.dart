@@ -18,25 +18,45 @@ class MyApp extends StatelessWidget {
           title: const Text('Animation Dynamique'),
         ),
         body: const Center(
-          child: AnimatedLogo(),
+          child: IconLogo(iconName: Icons.directions_bike, iconColor: Colors.blue),
         ),
       ),
     );
   }
 }
 
-class AnimatedLogo extends StatelessWidget {
-  const AnimatedLogo({super.key});
+class IconLogo extends StatelessWidget {
+  final IconData iconName;
+  final Color iconColor;
+
+  const IconLogo({super.key, required this.iconName, required this.iconColor});
 
   @override
   Widget build(BuildContext context) {
     return Animator<double>(
-      tween: Tween<double>(begin: 0, end: 1000),
-      cycles: 0,
+      tween: Tween<double>(begin: 0, end: 50),
+      cycles: 1,
       duration: const Duration(seconds: 1),
-      builder: (context, animatorState, child ) => Opacity(
-        opacity: animatorState.value / 1000,
-        child: const FlutterLogo(size: 200,),
+      builder: (context, animatorState, child ) => Container(
+        width: animatorState.value,
+        height: animatorState.value,
+        decoration: BoxDecoration(
+          color: iconColor,
+          borderRadius: BorderRadius.circular(50),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white.withOpacity(0.1),
+              spreadRadius: 3,
+              blurRadius: 15,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Icon(
+          iconName,
+          color: Colors.white,
+          size: animatorState.value /2,
+        ),
       ),
     );
   }
