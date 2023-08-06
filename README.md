@@ -11,5 +11,5 @@ You can compile this application with only once source code on many system (Andr
 
 ## Screenshots
 In Android Pixel 3a:
-https://github.com/davipro34/demosport_app/assets/78750640/0af81fc8-3c9c-4b57-a891-d5bd6928b0af
+![](https://github.com/davipro34/demomusic_app/blob/main/README/Compilation_Android_demosport_app.gif)
 
