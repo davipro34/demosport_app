@@ -222,6 +222,7 @@ class LineData extends StatelessWidget {
 
 Widget slider = SleekCircularSlider(
   appearance: CircularSliderAppearance(
+    animDurationMultiplier: 2.5,
     size: 250,
     customWidths: CustomSliderWidths(progressBarWidth: 25),
     infoProperties: InfoProperties(
