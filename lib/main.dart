@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:delayed_display/delayed_display.dart';
+import 'package:animate_do/animate_do.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   static const String _title = 'Flutter Animation Dynamique';
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,21 +15,29 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(
+          leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
           title: const Text('Animation Dynamique'),
+          backgroundColor: Colors.black.withOpacity(0.8),
+          actions: [
+            IconButton(icon: const Icon(Icons.refresh), onPressed: () {})
+          ],
         ),
-        body: Center(
-          child: Container(
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.black87,
+          child: SingleChildScrollView(
+            child: Column(
               children: [
                 DelayedDisplay(
-                  delay: Duration(milliseconds: 500),
-                  child: Text('Hello World'),
+                  delay: const Duration(milliseconds: 500),
+                  child: topIcons,
                 ),
                 DelayedDisplay(
-                  delay: Duration(milliseconds: 1500),
-                  child: Text('Deuxième texte'),
+                  delay: const Duration(milliseconds: 1500),
+                  child: infoBox,
                 ),
+                const SizedBox(height: 50),
               ],
             ),
           ),
@@ -41,6 +47,118 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Widget topIcons = Container(
+  height: 130,
+  padding: const EdgeInsets.all(30),
+  margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      IconLogo(
+        iconName: Icons.directions_walk,
+        iconColor: Colors.tealAccent.shade700,
+        animationDuration: const Duration(milliseconds: 500),
+      ),
+      const IconLogo(
+        iconName: Icons.directions_run,
+        iconColor: Colors.lightBlue,
+        animationDuration: Duration(milliseconds: 600),
+      ),
+      const IconLogo(
+        iconName: Icons.directions_bike,
+        iconColor: Colors.purple,
+        animationDuration: Duration(milliseconds: 600),
+      ),
+      const IconLogo(
+        iconName: Icons.favorite,
+        iconColor: Colors.pink,
+        animationDuration: Duration(milliseconds: 800),
+      ),
+      IconLogo(
+        iconName: Icons.more_vert,
+        iconColor: Colors.grey.shade800,
+        animationDuration: const Duration(milliseconds: 900),
+      ),
+    ],
+  ),
+);
+
+class IconLogo extends StatelessWidget {
+  final IconData iconName;
+  final Color iconColor;
+  final Duration animationDuration;
+  const IconLogo(
+      {Key? key,
+      required this.iconName,
+      required this.iconColor,
+      required this.animationDuration})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Animator<double>(
+      tween: Tween<double>(begin: 0, end: 50),
+      cycles: 1,
+      duration: animationDuration,
+      builder: (context, animatorState, child) => Center(
+        child: Container(
+          width: animatorState.value,
+          height: animatorState.value,
+          decoration: BoxDecoration(
+            color: iconColor,
+            borderRadius: BorderRadius.circular(50),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(0.1),
+                spreadRadius: 3,
+                blurRadius: 15,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Icon(
+            iconName,
+            color: Colors.white,
+            size: animatorState.value / 2,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget infoBox = Container(
+  margin: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+  width: 250,
+  child: const Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      LineData(
+        iconName: Icons.directions_walk,
+        lineColor: Colors.purple,
+        lineTitle: 'Pas',
+        lineNumber: '12967',
+        animationDuration: Duration(milliseconds: 500),
+      ),
+      SizedBox(height: 30),
+      LineData(
+        iconName: Icons.fastfood,
+        lineColor: Colors.orange,
+        lineTitle: 'Calories',
+        lineNumber: '967',
+        animationDuration: Duration(milliseconds: 700),
+      ),
+      SizedBox(height: 30),
+      LineData(
+        iconName: Icons.directions_bike,
+        lineColor: Colors.blue,
+        lineTitle: 'Km de vélo',
+        lineNumber: '2.7',
+        animationDuration: Duration(milliseconds: 900),
+      ),
+    ],
+  ),
+);
+
 class LineData extends StatelessWidget {
   final IconData iconName;
   final Color lineColor;
@@ -48,8 +166,13 @@ class LineData extends StatelessWidget {
   final String lineNumber;
   final Duration animationDuration;
   const LineData(
-      {super.key, required this.iconName, required this.lineColor, required this.lineTitle, required this.lineNumber, required this.animationDuration});
-
+      {Key? key,
+      required this.iconName,
+      required this.lineColor,
+      required this.lineTitle,
+      required this.lineNumber,
+      required this.animationDuration})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SlideInLeft(
@@ -67,7 +190,7 @@ class LineData extends StatelessWidget {
                   spreadRadius: 3,
                   blurRadius: 15,
                   offset: const Offset(0, 3),
-                )
+                ),
               ],
             ),
             child: Icon(iconName, color: Colors.white, size: 35),
@@ -78,14 +201,11 @@ class LineData extends StatelessWidget {
             children: [
               Text(
                 lineNumber,
-                style: const TextStyle(color: Colors.black, fontSize: 30),
+                style: const TextStyle(color: Colors.white, fontSize: 30),
               ),
               Text(
                 lineTitle,
-                style: TextStyle(
-                  color: lineColor,
-                  fontSize: 20,
-                ),
+                style: TextStyle(color: lineColor, fontSize: 20),
               ),
             ],
           ),
