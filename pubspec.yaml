@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   animator: ^3.3.0
   animate_do: ^3.0.2
+  delayed_display: ^2.0.0
 
 dev_dependencies:
   flutter_test:

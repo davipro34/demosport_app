@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:delayed_display/delayed_display.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,32 +21,16 @@ class MyApp extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            width: 250,
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LineData(
-                  iconName: Icons.directions_walk,
-                  lineColor: Colors.purple,
-                  lineTitle: 'Pas',
-                  lineNumber: '12883',
-                  animationDuration: Duration(milliseconds: 500),
+                DelayedDisplay(
+                  delay: Duration(milliseconds: 500),
+                  child: Text('Hello World'),
                 ),
-                SizedBox(height: 30),
-                LineData(
-                  iconName: Icons.fastfood,
-                  lineColor: Colors.orange,
-                  lineTitle: 'Calories',
-                  lineNumber: '978',
-                  animationDuration: Duration(milliseconds: 700),
-                ),
-                SizedBox(height: 30),
-                LineData(
-                  iconName: Icons.directions_bike,
-                  lineColor: Colors.blue,
-                  lineTitle: 'Km de vélo',
-                  lineNumber: '2.8',
-                  animationDuration: Duration(milliseconds: 900),
+                DelayedDisplay(
+                  delay: Duration(milliseconds: 1500),
+                  child: Text('Deuxième texte'),
                 ),
               ],
             ),
